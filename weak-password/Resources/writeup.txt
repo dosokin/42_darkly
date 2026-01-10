@@ -1,0 +1,19 @@
+In most websites, there's a publicly accessible file called robots.txt.
+It's mostly used to tell web crawlers which pages not to index or scrap, which can be useful if you don't want certain pages to appear by a simple search.
+However, since everyone can see it, you should not write real hidden pages in it, like our case:
+    User-agent: *
+    Disallow: /whatever
+    Disallow: /.hidden
+
+By looking what's inside /whatever, we can download a file called "htpasswd" with this inside:
+    root:437394baff5aa33daa618be47b75cb49
+
+This is very interesting, since htpasswd is a file used to store apache user credentials.
+These passwords are encrypted using MD5, which is an easily crackable encryption algorithm.
+Cracking it reveals:
+    437394baff5aa33daa618be47b75cb49 -> qwerty123@
+
+We're happy to have a user/password combo, but we still need a place to use them, and it doesn't work in the user signin form.
+The first instinct is to look for a hidden admin panel, for example at /admin.
+Accessing /admin indeed reveals a signin form, and inputting our combo gives us the flag:
+    d19b4823e0d5600ceed56d5e896ef328d7a2b9e7ac7e80f4fcdb9b10bcb3e7ff

@@ -1,0 +1,9 @@
+In the upload page, we can upload an image to the server via a form.
+
+It is possible through a curl to make the server think we're sending a .png file, while we're really sending a .php.
+    curl "http://${SERVER_IP}/?page=upload" -X POST -F "Upload=Upload" -F "uploaded=@/tmp/file.php;type=image/jpeg"
+
+This makes a POST request to the URL, setting the uploaded field to our .php with a fake type of image/jpeg.
+In this case, the server only checks for the type in the request and the file is uploaded.
+The flag is in the response:
+    46910d9ce35b385885a9f7e2b336249d622f29b267a1771fbacf52133beddba8

@@ -1,0 +1,53 @@
+In the members page, there's an input that allows us to search a member by its ID.
+The first intuition is to look for an SQL injection.
+
+If we input something like -- or ', the site sends the following error:
+    You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '\'' at line 1
+
+This means the server does not fully sanitize user input and allows us to craft our own SQL requests.
+The first step is to trick the server into executing any request we want.
+
+The original request probably looks like:
+    SELECT * FROM members WHERE id=
+
+Then the first section of our crafted SQL will be:
+    1 OR 1=1
+This will return every member since 1=1 is always true. From this, we can extend our injection to target what we really want.
+
+We will use something called a union-based injection. Using the UNION keyword, we can return results from another table.
+The first step is then to get information on the database architecture.
+    1 OR 1=1 UNION SELECT NULL, table_name FROM information_schema.tables WHERE table_schema = database()
+
+"SELECT NULL, table_name" allows us to return any amount of columns we want.
+Normally, the UNION keyword only works if the left and right sections of the request return the same number of columns.
+Since the first request returns "first_name" and "surname", we can't only return table_name: we need to add a NULL field.
+
+"FROM information_schema.tables WHERE table_schema = database()" queries for the tables names in the database.
+If we didn't have the WHERE, we would query for all the tables in the whole server, including internal ones that would pollute our result.
+
+Thanks to this query, we find a table named "users". We will then list the columns in this table using the same method.
+    1 OR 1=1 UNION SELECT NULL, column_name FROM information_schema.columns WHERE table_name = CHAR(117,115,101,114,115)
+
+We can't directly write "users" because the server sanitizes user-inputted quotes.
+Still, string literals must be quoted in SQL, thus we use CHAR() which returns a quoted string from ASCII decimals.
+This finally gives us all columns present in the users table:
+    user_id,first_name,last_name,town,country,planet,Commentaire,countersign
+
+Two fields are suspicious: Commentaire and countersign.
+Our first instinct is then to query for these values for each user.
+    1 OR 1=1 UNION SELECT Commentaire, countersign FROM users
+
+For the last user, this gives us:
+    Decrypt this password -> then lower all the char. Sh256 on it and it's good !
+    5ff9d0165b4f92b14994e5c685cdce28
+
+This is an MD5 password, which is easily crackable. The password is "FortyTwo", lowered to "fortytwo", then sh256-ed gives the flag:
+    10a16d834f9b1e4068b25c4c46fe0284e99e44dceaf08098fc83925ba6310ff5
+
+
+
+Documentation:
+    https://portswigger.net/web-security/sql-injection/union-attacks
+    https://mariadb.com/docs/server/reference/system-tables/information-schema
+    https://md5decrypt.net/
+    https://emn178.github.io/online-tools/sha256.html

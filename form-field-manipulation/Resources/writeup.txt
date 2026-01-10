@@ -1,0 +1,11 @@
+URL: /?page=recover
+
+Malicious users can easily manipulate data sent through a form by setting random values and even manipulate hidden
+form fields.
+
+That's what we are able to do on the password reset page, by setting any value we want to the email field.
+
+We can then submit this form and the data will be sent without proper validation to the backend.
+
+That's why the data from the front should always be double-checked in the frontend and the backend.
+The data received in the backend by the frontend should never be trusted.

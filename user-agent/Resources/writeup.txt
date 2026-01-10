@@ -1,0 +1,10 @@
+In the albatros page, inspecting the comments in the HTML gives us hints on the resolution of the problem.
+
+<!--You must come from : "https://www.nsa.gov/".-->
+<!--Let's use this browser : "ft_bornToSec". It will help you a lot.-->
+
+These two comments refer to the Referer and User-Agent request headers, which indicate the page the user comes from and the browser he's using.
+Changing these two values to nsa.gov and bornToSec in a curl gives us the flag.
+    curl "http://${SERVER_IP}/index.php?page=b7e44c7a40c5f80139f0a50f3650fb2bd8d00b0d24667c4c2ca32c88e13b758f" \
+    -H "Referer:https://www.nsa.gov/" \
+    -H "User-Agent:ft_bornToSec" | grep "flag"

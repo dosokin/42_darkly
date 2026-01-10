@@ -1,0 +1,19 @@
+In the signin page, we are faced with a login form.
+Since the creator of this website didn't leave any flaw that would expose this form to attacks, we're only left with brute force.
+
+Brute force means trying every possible combination of credentials to eventually find one that works.
+Normally, this could take forever to find something interesting.
+However, we can speed up that process by targeting our victim in a smart way.
+
+Since we're attacking a login form, we might want to try common passwords instead of random values.
+List of already hacked passwords are easily findable on the internet, so that's what we will use.
+
+We also don't really care about normal users, we want to get access to a privileged account.
+Common privileged usernames are names like: admin, root, supervisor, administrator...
+
+By using our brute-force script, we are able to find these working credentials:
+    login: admin
+    password: shadow
+
+Trying to login with these credentials gives us the flag:
+    b3a6e43ddf8b4bbb4125e5e7d23040433827759d4de1c04ea63907479a80a6b2

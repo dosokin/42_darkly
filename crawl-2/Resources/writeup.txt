@@ -1,0 +1,7 @@
+URL: /?page=b7e44c7a40c5f80139f0a50f3650fb2bd8d00b0d24667c4c2ca32c88e13b758f
+
+We can find out about the structure of a website by recursively following all links contained in the html.
+
+It gives the possibility to find some sensitive pages on which the attackers could focus their attention on.
+
+By crawling through bornToSec's website we were able to find an URL containing a sensitive information (our flag).

@@ -1,0 +1,9 @@
+By using the Inspect tools of our browser, we notice a cookie called i_am_admin with a 32-character long value.
+    i_am_admin: 68934a3e9455fa72420237eb05902327
+
+This looks a lot like MD5, which is an easily reproducible encryption algorithm.
+Cracking it gives us 68934a3e9455fa72420237eb05902327 -> "false"
+
+What would happen if we replace the cookie value with the md5 of "true" -> b326b5062b2f0e69046810717534cb09?
+You guessed it, refreshing the page with this new cookie gives us the flag:
+    df2eb4ba34ed059a1e3e89ff4dfc13445f104a1a52295214def1c4fb1693a5c3

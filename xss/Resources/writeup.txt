@@ -1,0 +1,11 @@
+In the feedback page, we can leave a comment that will be displayed on the site.
+
+There are two fields, name and message.
+The first instinct is to try to inject a script inside one of the fields.
+
+If we try to input <script>alert("test")</script> in message, it is sanitized and doesn't break anything.
+For the name field, the max length does not allow to write the script in full.
+However, we can increase this size with the inspector tools and write our malicious payload.
+
+With that done, sending the script gives us the flag:
+    0fbb54bbf7d099713ca4be297e1bc7da0173d8b3c21c1811b916a3a86652724e

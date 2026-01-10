@@ -1,0 +1,23 @@
+URL: /robots.txt
+
+The robots.txt file is meant for a webserver owner to allow or disallow some paths to automated crawlers.
+
+As some site crawlers are not malicious, such as the Google one meant for website indexing, this file is strongly
+recommended.
+
+However, as this file is meant to list some site paths that should not be accessed for security or privacy reasons by
+automated crawlers, it also potentially highlights some vulnerabilities and gives information about our web server
+structure.
+
+On bornToSec, the robots.txt file has the following content:
+
+User-agent: *
+Disallow: /whatever
+Disallow: /.hidden
+
+Both of these listed urls redirect us to directory listings.
+We will then recursively crawl on them to find a sensitive information (our flag).
+
+The robots.txt is mandatory by convention and for SEO purposes but should be used wisely.
+Listing disallowed paths in it is not a solution to guarantee their protection.
+In any case, vulnerable paths should not be accessible at all by unauthorized users.

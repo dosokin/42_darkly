@@ -1,0 +1,10 @@
+By surfing through the website, we notice that each page is rendered with a 'page' URL parameter.
+For example: /index.php?page=survey
+
+To see if this exposes a directory traversal attack, we try to render pages with relative paths.
+For example /index.php?page=../survey
+
+In this case, the site returns a hint to indicate that it is possible.
+This means we can access files on the server as if we were in a file explorer, and thus retrieve sensitive information such as the machine's password.
+
+By trial and error, we find the path /index.php?page=../../../../../../../etc/passwd which gives us the flag.

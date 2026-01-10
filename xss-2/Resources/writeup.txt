@@ -1,0 +1,14 @@
+In the media page, there's an image of the NSA logo displayed.
+While it looks perfectly normal, we notice that the url takes "src=nsa" as a query parameter.
+In our case, it seems to tell to display the NSA logo.
+
+By looking in the HTML, we can also see that our image is rendered with an <object> tag.
+If we set src=test, the data attribute of the <object> will be replaced by test.
+It means that we can control what the server returns from the URL.
+
+We can then use a malicious "data URL", which allows to create small inline files, and put it into our query.
+    data:text/html;base64,PHNjcmlwdD5hbGVydCgidGVzdCIpPC9zY3JpcHQ+
+
+This base64 translates to <script>alert("test")</script>.
+By sending this to the site, we get the flag:
+    928d819fc19405ae09921a2b71227bd9aba106f9d2d37ac412e9e5a750f1506d

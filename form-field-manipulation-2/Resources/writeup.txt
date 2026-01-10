@@ -1,0 +1,28 @@
+URL: /?page=survey
+
+Malicious users can easily manipulate data sent through a form by setting random values and even manipulate hidden
+form fields.
+
+That's what we are able to do on the survey page, by changing the value associated with one of the rate to highly
+increase the mean rate of a user.
+
+<form action="#" method="post">
+    <input type="hidden" name="sujet" value="4">
+    <select name="valeur" onchange="javascript:this.form.submit();">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+</form>
+
+We can then submit this form and the data will be sent without proper validation to the backend.
+
+That's why the data from the front should always be double-checked in the frontend and the backend.
+The data received in the backend by the frontend should never be trusted.

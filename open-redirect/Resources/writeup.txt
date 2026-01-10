@@ -1,0 +1,7 @@
+At the bottom of the main page, there are 3 icons that redirect us to the 42 social medias.
+
+To be more precise, clicking on them sends us to ?page=redirect&site=facebook, which redirects us to facebook.
+If we modify this value to, for example: http://maliciouswebsite.com, this could redirect the user to another website that bornToSec doesn't approve.
+Using this link gives us the flag:
+    /index.php?page=redirect&site=http://maliciouswebsite.com
+    b9e775a0291fed784a2d9680fcfad7edd6b8cdf87648da647aaf4bba288bcab3
